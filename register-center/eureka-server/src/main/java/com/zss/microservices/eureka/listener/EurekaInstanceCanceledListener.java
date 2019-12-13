@@ -3,6 +3,7 @@ package com.zss.microservices.eureka.listener;
 import com.netflix.discovery.shared.Applications;
 import com.netflix.eureka.EurekaServerContextHolder;
 import com.netflix.eureka.registry.PeerAwareInstanceRegistry;
+import com.zss.microservices.log.annotation.EnableLogging;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.netflix.eureka.server.event.EurekaInstanceCanceledEvent;
 import org.springframework.cloud.netflix.eureka.server.event.EurekaInstanceRegisteredEvent;

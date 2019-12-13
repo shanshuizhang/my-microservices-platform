@@ -1,6 +1,7 @@
 package com.zss.microservices.datasource.util;
 
 import com.zss.microservices.datasource.constant.DataSourceKey;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
 import javax.sql.DataSource;
