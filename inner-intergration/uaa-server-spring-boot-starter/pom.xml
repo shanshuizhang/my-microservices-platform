@@ -48,7 +48,6 @@
             <artifactId>common-spring-boot-starter</artifactId>
         </dependency>
 
-        <!-- 公共实体类模块 -->
         <dependency>
             <groupId>com.zss.microservices</groupId>
             <artifactId>log-spring-boot-starter</artifactId>
