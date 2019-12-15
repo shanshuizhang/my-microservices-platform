@@ -18,6 +18,7 @@ import java.util.Set;
  * @author fuguozhang
  * @email fuguozhang@jyblife.com
  * @date 2019/12/11 15:07
+ * 用户实体绑定spring security
  */
 @Getter
 @Setter
