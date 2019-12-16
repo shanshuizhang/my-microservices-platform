@@ -12,6 +12,7 @@
     <modules>
         <module>register-center</module>
         <module>inner-intergration</module>
+        <module>oauth-center</module>
     </modules>
 
     <properties>
@@ -115,6 +116,20 @@
             <dependency>
                 <groupId>com.zss.microservices</groupId>
                 <artifactId>log-spring-boot-starter</artifactId>
+                <version>${core.version}</version>
+            </dependency>
+
+            <!-- API测试文档 -->
+            <dependency>
+                <groupId>com.zss.microservices</groupId>
+                <artifactId>swagger-spring-boot-starter</artifactId>
+                <version>${core.version}</version>
+            </dependency>
+
+            <!-- 资源服务 -->
+            <dependency>
+                <groupId>com.zss.microservices</groupId>
+                <artifactId>uaa-server-spring-boot-starter</artifactId>
                 <version>${core.version}</version>
             </dependency>
         </dependencies>

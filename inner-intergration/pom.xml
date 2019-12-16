@@ -20,6 +20,7 @@
         <module>log-spring-boot-starter</module>
         <module>common-spring-boot-starter</module>
         <module>uaa-server-spring-boot-starter</module>
+        <module>swagger-spring-boot-starter</module>
     </modules>
 
 
