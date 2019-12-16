@@ -3,6 +3,7 @@ package com.zss.microservices.uaa.server;
 import com.zss.microservices.common.feign.FeignInterceptorConfig;
 import com.zss.microservices.common.rest.RestTemplateConfig;
 import com.zss.microservices.uaa.server.service.RedisAuthorizationCodeServices;
+import com.zss.microservices.uaa.server.service.RedisClientDetailsService;
 import com.zss.microservices.uaa.server.token.RedisTemplateTokenStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +22,8 @@ import org.springframework.security.oauth2.provider.error.WebResponseExceptionTr
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
+import javax.sql.DataSource;
+
 /**
  * @author fuguozhang
  * @email fuguozhang@jyblife.com
@@ -30,6 +33,13 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @Configuration
 @Import({RestTemplateConfig.class,FeignInterceptorConfig.class})
 public class UAAServerConfig {
+
+    @Bean
+    public RedisClientDetailsService redisClientDetailsService(DataSource dataSource,RedisTemplate<String, Object> redisTemplate){
+        RedisClientDetailsService redisClientDetailsService = new RedisClientDetailsService(dataSource);
+        redisClientDetailsService.setRedisTemplate(redisTemplate);
+        return redisClientDetailsService;
+    }
 
     @Bean
     public RandomValueAuthorizationCodeServices authorizationCodeServices(RedisTemplate<String,Object> redisTemplate){
@@ -63,6 +73,9 @@ public class UAAServerConfig {
         @Autowired(required = false)
         private RandomValueAuthorizationCodeServices authorizationCodeServices;
 
+        @Autowired
+        private RedisClientDetailsService redisClientDetailsService;
+
         @Override
         public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
             super.configure(security);
@@ -70,9 +83,13 @@ public class UAAServerConfig {
 
         @Override
         public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-            super.configure(clients);
+            clients.withClientDetails(redisClientDetailsService);
+            redisClientDetailsService.loadAllClientToCache();
         }
 
+        /**
+         * 配置身份认证器，配置认证方式，TokenStore，TokenGranter，OAuth2RequestFactory
+         */
         @Override
         public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
             if(jwtTokenStore != null){
